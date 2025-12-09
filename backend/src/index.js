@@ -13,7 +13,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
 
 // Middlewares
-aconst allowedOrigins = [
+const allowedOrigins = [
   "http://localhost:5173",
   "https://retail-sales-management-system-rust.vercel.app"
 ];
