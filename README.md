@@ -8,108 +8,104 @@ Built to replicate production-grade engineering workflows, ensuring scalability,
 
 # Frontend
 
-React (Vite)
+- React (Vite)
 
-Tailwind CSS
+- Tailwind CSS
 
-Reusable UI Components (Dropdowns, Table, Cards, Pagination)
+- Reusable UI Components (Dropdowns, Table, Cards, Pagination)
 
-API Service Layer
+- API Service Layer
 
-Backend
+# Backend
 
-Node.js + Express.js
+- Node.js + Express.js
 
-MongoDB (Mongoose)
+- MongoDB (Mongoose)
 
-Aggregation Pipeline + allowDiskUse(true)
+- Aggregation Pipeline + allowDiskUse(true)
 
-Modular Architecture (Controllers, Services, Utils)
+- Modular Architecture (Controllers, Services, Utils)
 
-Dev Tools
+- Dev Tools
 
-Nodemon
+- Nodemon
 
-dotenv
+- dotenv
 
-Git + GitHub
+# 🔍 Search Implementation Summary
 
-Postman
+# Search supports:
 
-🔍 Search Implementation Summary
+- Customer Name (case-insensitive)
 
-Search supports:
+- Phone Number
 
-Customer Name (case-insensitive)
+- Implementation:
 
-Phone Number
+- Frontend sends ?search=<term> to backend
 
-Implementation:
+- Backend applies case-insensitive regex using:
 
-Frontend sends ?search=<term> to backend
+- { $regex: searchTerm, $options: "i" }
 
-Backend applies case-insensitive regex using:
+- Works seamlessly with sorting, filters, and pagination
 
-{ $regex: searchTerm, $options: "i" }
+- Optimized to avoid unnecessary queries
 
-Works seamlessly with sorting, filters, and pagination
+# 🎯 Filter Implementation Summary
 
-Optimized to avoid unnecessary queries
+**Filters include:**
 
-🎯 Filter Implementation Summary
+- Customer Region (multi-select)
 
-Filters include:
+- Gender (multi-select)
 
-Customer Region (multi-select)
+- Age Range (min-max)
 
-Gender (multi-select)
+- Product Category (multi-select)
 
-Age Range (min-max)
+- Payment Method (multi-select)
 
-Product Category (multi-select)
+- Tags (comma separated)
 
-Payment Method (multi-select)
+- Date Range (start-end)
 
-Tags (comma separated)
+**Implementation:**
 
-Date Range (start-end)
+- All filters passed as query params
 
-Implementation:
+- Centralized backend utility buildSalesQuery() merges them
 
-All filters passed as query params
+- MongoDB $match created dynamically
 
-Centralized backend utility buildSalesQuery() merges them
+- Filters combine correctly and independently
 
-MongoDB $match created dynamically
+- No conflicts with search or sorting
 
-Filters combine correctly and independently
+# 🔄 Sorting Implementation Summary
 
-No conflicts with search or sorting
+**Sorting supports:**
 
-🔄 Sorting Implementation Summary
+- Date (Newest First)
 
-Sorting supports:
+- Quantity
 
-Date (Newest First)
+- Customer Name (A–Z)
 
-Quantity
+- Ascending / Descending
 
-Customer Name (A–Z)
-
-Ascending / Descending
-
-Backend Implementation:
+# Backend Implementation:
 
 
-📄 Pagination Implementation Summary
+**📄 Pagination Implementation Summary**
 
-Pagination uses server-side logic:
+- Pagination uses server-side logic:
 
-Default: 25 records per page
+- Default: 25 records per page
 
-Query params: ?page=1&limit=25
+- Query params: ?page=1&limit=25
 
-Backend returns metadata:
+**Backend returns metadata:**
 
 {
 "page": 1,
@@ -118,35 +114,35 @@ Backend returns metadata:
 "totalPages": 31400
 }
 
-Features:
+**Features:**
 
-Stable with filters, sorting, and search
+- Stable with filters, sorting, and search
 
-Frontend smooth scroll to top on page change
+- Frontend smooth scroll to top on page change
 
-Automatically handles out-of-range pages
+- Automatically handles out-of-range pages
 
-Table wrapped in scroll container to avoid layout breaking
+- Table wrapped in scroll container to avoid layout breaking
 
-🛠️ Setup Instructions
-1️⃣ Clone the Repository
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+# 🛠️ Setup Instructions
+### 1️⃣ Clone the Repository
+git clone https://github.com/<your-username>/Retail-Sales-Management-System.git
 
-2️⃣ Backend Setup
+cd Retail-Sales-Management-System
+
+### 2️⃣ Backend Setup
 cd backend
 npm install
 
 Create .env file:
 
 MONGODB_URI=your-mongodb-uri
-PORT=8080
 
 Start backend:
 
 npm run dev
 
-3️⃣ Frontend Setup
+### 3️⃣ Frontend Setup
 cd ../frontend
 npm install
 
@@ -158,21 +154,24 @@ Start frontend:
 
 npm run dev
 
-4️⃣ URLs
+### 4️⃣ URLs
 Service URL
 Frontend http://localhost:5173
 
 Backend Health http://localhost:8080/health
 
 Sales API http://localhost:8080/api/sales
-5️⃣ Deployment Build
 
-Frontend:
+### 5️⃣ Deployment Build
 
-cd frontend
-npm run build
+**Frontend:**
 
-Backend (if build step exists):
+- cd frontend
 
-cd backend
-npm run build
+- npm run build
+
+**Backend:**
+
+- cd backend
+
+- npm run build
