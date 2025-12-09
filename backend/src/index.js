@@ -10,18 +10,35 @@ const app = express();
 
 const PORT = process.env.PORT || 5050;
 const MONGODB_URI = process.env.MONGODB_URI;
+
+// ✅ read frontend origin from env (Render)
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN;
 
+// Middlewares
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://retail-sales-management-system-psi.vercel.app/"
-];
+  "http://localhost:5173",   // local dev
+  FRONTEND_ORIGIN           // production frontend (Vercel)
+].filter(Boolean);           // remove undefined if env not set
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      // allow Postman, curl, etc. (no origin)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.log("Blocked by CORS origin:", origin);
+      return callback(new Error("Not allowed by CORS"), false);
+    },
+    credentials: true,
   })
 );
+
+// (optional but helpful for some browsers)
+app.options("*", cors());
 
 app.use(express.json());
 
