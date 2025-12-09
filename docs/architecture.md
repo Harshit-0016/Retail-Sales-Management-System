@@ -100,4 +100,103 @@ User triggers:
 - Pagination  
 
 ### **2. Frontend State Updates**
-React updates:
+- React state updates:
+
+- search, filters, sort, page
+
+### **3. API Request**
+
+- Frontend builds the URL using:
+
+- GET /api/sales?search=...&page=...&limit=25&regions=...&sortBy=...
+
+### **4. Backend Request Handling**
+
+- Express route receives request
+
+- Controller forwards to service
+
+- Service calls:
+
+- buildSalesQuery() which returns:
+
+- MongoDB filters
+
+- sort object
+
+- pagination values
+
+### **5. MongoDB Processing**
+
+- Sales data fetched using:
+
+- Sale.aggregate(pipeline).allowDiskUse(true)
+
+
+**Pipeline applies:**
+
+- $match (filters + search)
+
+- $sort
+
+- $skip
+
+- $limit
+
+### **6. Response Returned**
+
+**Backend returns:**
+
+{
+  "items": [...],
+  "meta": {
+    "page": 1,
+    "pageSize": 25,
+    "totalItems": 785000,
+    "totalPages": 31400
+  }
+}
+
+### **7. UI Rendering**
+
+**React updates:**
+
+- Table
+
+- Summary Cards
+
+- Pagination UI
+
+- Data remains consistent with filters, search, and sorting.
+
+# 📁 4. Folder Structure
+root/ 
+
+│ ├── backend/ # Backend service (Node.js/Express)
+
+     ├── src/ 
+
+      │ ├── controllers/ # Route handlers and request controllers │
+      
+      │ ├── services/ # Business logic and reusable service functions │ 
+      │ ├── utils/ # Helper utilities and common functions │ 
+      │├── models/ # Database models (e.g., Mongoose/Sequelize) │ 
+      │└── index.js # Entry point for backend server │
+      ├── package.json # Backend dependencies and scripts │ 
+      └── README.md # Backend-specific documentation │ 
+  ├── frontend/ # Frontend service (React/Vite or CRA) │
+  
+     ├── src/ │ 
+     │ ├── components/ # Reusable UI components │
+     │ ├── pages/ # Page-level components (routes) │ 
+     │ ├── services/ # API calls and external integrations │
+     │ ├── utils/ # Helper functions for frontend │
+     │ ├── hooks/ # Custom React hooks │ 
+     │ ├── styles/ # Global and modular stylesheets │ 
+     │ └── main.jsx # Frontend entry point │
+     ├── public/ # Static assets (images, icons, etc.) │
+     ├── package.json # Frontend dependencies and scripts │ 
+     └── README.md # Frontend-specific documentation │ 
+   ├── docs/ # Documentation| 
+    
+    └── architecture.md # System architecture and design notes
