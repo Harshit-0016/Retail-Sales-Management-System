@@ -37,9 +37,6 @@ app.use(
   })
 );
 
-// (optional but helpful for some browsers)
-app.options("*", cors());
-
 app.use(express.json());
 
 //  check
