@@ -10,7 +10,7 @@ const app = express();
 
 const PORT = process.env.PORT || 5050;
 const MONGODB_URI = process.env.MONGODB_URI;
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN;
 
 const allowedOrigins = [
   "http://localhost:5173",
