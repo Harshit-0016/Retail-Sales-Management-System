@@ -14,7 +14,7 @@ const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://retail-sales-management-system-rust.vercel.app"
+  "https://retail-sales-management-system-psi.vercel.app/"
 ];
 
 app.use(
