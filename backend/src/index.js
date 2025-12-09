@@ -13,12 +13,24 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
 
 // Middlewares
-app.use(
-  cors({
-    origin: FRONTEND_ORIGIN,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  })
-);
+aconst allowedOrigins = [
+  "http://localhost:5173",
+  "https://retail-sales-management-system-rust.vercel.app"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"), false);
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 //  check
